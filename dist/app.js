@@ -18,7 +18,7 @@ const apiKeys = () => {
 const retrieveKeys = () => {
 	apiKeys().then((results) => {
 		wdb.setKeys(results.wdb.apiKey);
-		console.log("retrieveKeys", results.wdb.apikey);
+		console.log("retrieveKeys", results.wdb.apiKey);
 	}).catch((error) => {
 		console.log("error in retrieve keys", error);
 	});
