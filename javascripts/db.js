@@ -6,9 +6,9 @@ let dom = require('./dom');
 
 const searchDB = (query) => {
     return new Promise((resolve, reject) => {
-        $.ajax(`api.openweathermap.org/data/2.5/forecast/daily?zip=37064`).done((data) => {
-        		console.log("searchDB", data.results);
-        		resolve(data.results);
+        $.ajax(`http://api.openweathermap.org/data/2.5/forecast/daily?zip=${query},us&units=imperial&APPID=${wdbKeys}`).done((data) => {
+        	console.log("search", data);
+        		resolve(data);
         }).fail((error) => {
         	reject(error);
         });
@@ -26,18 +26,37 @@ const searchWeather = (query) => {
 	});
 };
 
+// const threeDay = (query) => {
+//     searchDB(query).then((data) => {
+//         console.log("searchWeather", data);
+//         dom.threeDayDomString(data);
+//     }).catch((error) => {
+//         console.log("error in 3day Weather", error);
+//     });
+// };
+
+// const fiveDay = (query) => {
+//     searchDB(query).then((data) => {
+//         console.log("searchWeather", data);
+//         dom.fiveDayDomString(data);
+//     }).catch((error) => {
+//         console.log("error in 3day Weather", error);
+//     });
+// };
+
 const setKeys = (apiKey) => {
     wdbKeys = apiKey;
 };
 
 const showResults = (weatherArray) => {
     dom.domString(weatherArray);
+    dom.threeDayDomString(weatherArray);
+    dom.fiveDayDomString(weatherArray);
 };
 
 
 
 
 
-module.exports = {setKeys, searchWeather};
+module.exports = {searchWeather, setKeys};
 
-// api.openweathermap.org/data/2.5/forecast/daily?zip=${37064},us&units=imperial&APPID=${wdbKeys}
